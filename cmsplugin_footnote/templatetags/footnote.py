@@ -4,6 +4,7 @@ from django.template import Library
 
 register = Library()
 
+
 @register.inclusion_tag('cmsplugin_footnote/footnote_list.html',
                         takes_context=True)
 def footnote_list(context, placeholder_name, page=None):
