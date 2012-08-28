@@ -34,6 +34,9 @@
   margin-bottom: 0;
 }
 
+.cms-footnote-list .footnote .footnote-symbol {
+  text-align: right;
+}
 .cms-footnote-list .footnote:target .footnote-symbol,
 .footnote-symbol:target {
   background-color: #FF6;
