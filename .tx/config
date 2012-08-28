@@ -1,0 +1,6 @@
+[main]
+host = https://www.transifex.com
+
+[cmsplugin-footnote.core]
+file_filter = cmsplugin_footnote/locale/<lang>/LC_MESSAGES/django.po
+source_lang = en

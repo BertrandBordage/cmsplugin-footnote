@@ -1,0 +1,39 @@
+{% load sekizai_tags %}
+
+{% addtoblock 'css' %}
+  <style type="text/css">
+    .cms-footnote-list .footnote {
+      vertical-align: top;
+    }
+    .cms-footnote-list .footnote p {
+      margin-top: 0;
+    }
+  </style>
+{% endaddtoblock %}
+
+{% spaceless %}
+  {% for footnote_plugin in footnote_plugins %}
+
+    {% if forloop.first %}
+      <table class="cms-footnote-list">
+    {% endif %}
+
+    {% with counter=forloop.counter %}
+      <tr class="footnote" id="{{ placeholder_name }}_footnote_{{ counter }}">
+        <td>
+          <a href="#{{ placeholder_name }}_footnote_{{ counter }}_symbol">
+            {{ footnote_plugin.symbol|default:counter }}.
+          </a>
+        </td>
+        <td>
+          {{ footnote_plugin.body|safe }}
+        </td>
+      </tr>
+    {% endwith %}
+
+    {% if forloop.last %}
+      </table>
+    {% endif %}
+
+  {% endfor %}
+{% endspaceless %}

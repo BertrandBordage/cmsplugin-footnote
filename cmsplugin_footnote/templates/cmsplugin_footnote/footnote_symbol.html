@@ -1,0 +1,6 @@
+{% spaceless %}
+  <a href="#{{ placeholder_name }}_footnote_{{ counter }}">
+    <sup id="{{ placeholder_name }}_footnote_{{ counter }}_symbol"
+    >{{ object.symbol|default:counter }}</sup>
+  </a>
+{% endspaceless %}
