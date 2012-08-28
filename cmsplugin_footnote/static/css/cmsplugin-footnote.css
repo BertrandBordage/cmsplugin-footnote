@@ -1,0 +1,39 @@
+@charset "UTF-8";
+
+.cms-footnote-list-hline {
+  background-color: lightGrey;
+  width: 100%;
+  max-width: 300px;
+  height: 1px;
+}
+
+.cms-footnote-list {
+  margin: 5px 0;
+}
+
+.cms-footnote-list .footnote {
+  vertical-align: top;
+}
+
+.cms-footnote-list .footnote>* {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.cms-footnote-list .footnote:first-of-type>* {
+  padding-top: 0;
+}
+.cms-footnote-list .footnote:last-of-type>* {
+  padding-bottom: 0;
+}
+
+.cms-footnote-list .footnote p:first-of-type {
+  margin-top: 0;
+}
+.cms-footnote-list .footnote p:last-of-type {
+  margin-bottom: 0;
+}
+
+.cms-footnote-list .footnote:target .footnote-symbol,
+.footnote-symbol:target {
+  background-color: #FF6;
+}

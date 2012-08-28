@@ -1,2 +1,2 @@
 include README.rst COPYING
-recursive-include cmsplugin_footnote *.html *.po *.mo *.png
+recursive-include cmsplugin_footnote *.html *.po *.mo *.png *.css
