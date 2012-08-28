@@ -2,11 +2,42 @@
 
 {% addtoblock 'css' %}
   <style type="text/css">
+    .cms-footnote-list-hline {
+      background-color: lightGrey;
+      width: 100%;
+      max-width: 300px;
+      height: 1px;
+    }
+
+    .cms-footnote-list {
+      margin: 5px 0;
+    }
+
     .cms-footnote-list .footnote {
       vertical-align: top;
     }
-    .cms-footnote-list .footnote p {
+
+    .cms-footnote-list .footnote>* {
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+    .cms-footnote-list .footnote:first-of-type>* {
+      padding-top: 0;
+    }
+    .cms-footnote-list .footnote:last-of-type>* {
+      padding-bottom: 0;
+    }
+
+    .cms-footnote-list .footnote p:first-of-type {
       margin-top: 0;
+    }
+    .cms-footnote-list .footnote p:last-of-type {
+      margin-bottom: 0;
+    }
+
+    .cms-footnote-list .footnote:target .footnote-symbol,
+    .footnote-symbol:target {
+      background-color: #FF6;
     }
   </style>
 {% endaddtoblock %}
@@ -15,23 +46,26 @@
   {% for footnote_plugin in footnote_plugins %}
 
     {% if forloop.first %}
+      <div class="cms-footnote-list-hline"></div>
       <table class="cms-footnote-list">
+        <tbody>
     {% endif %}
 
     {% with counter=forloop.counter %}
       <tr class="footnote" id="{{ placeholder_name }}_footnote_{{ counter }}">
-        <td>
+        <td class="footnote-symbol">
           <a href="#{{ placeholder_name }}_footnote_{{ counter }}_symbol">
             {{ footnote_plugin.symbol|default:counter }}.
           </a>
         </td>
-        <td>
+        <td class="footnote-body">
           {{ footnote_plugin.body|safe }}
         </td>
       </tr>
     {% endwith %}
 
     {% if forloop.last %}
+        </tbody>
       </table>
     {% endif %}
 
