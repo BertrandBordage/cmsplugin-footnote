@@ -8,23 +8,12 @@
   height: 1px;
 }
 
-.cms-footnote-list {
-  margin: 5px 0;
-}
-
 .cms-footnote-list .footnote {
   vertical-align: top;
 }
 
 .cms-footnote-list .footnote>* {
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
-.cms-footnote-list .footnote:first-of-type>* {
-  padding-top: 0;
-}
-.cms-footnote-list .footnote:last-of-type>* {
-  padding-bottom: 0;
+  padding: 5px 0;
 }
 
 .cms-footnote-list .footnote p:first-of-type {
