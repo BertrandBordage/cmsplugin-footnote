@@ -2,6 +2,7 @@
 
 .cms-footnote-list-hline {
   background-color: lightGrey;
+  margin-top: 10px;
   width: 100%;
   max-width: 300px;
   height: 1px;
