@@ -3,6 +3,7 @@ from django.db.models import CharField
 from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import truncatewords_html
 from django.utils.html import strip_tags
+from django.core.cache import cache
 
 
 class Footnote(AbstractText):
@@ -15,3 +16,13 @@ class Footnote(AbstractText):
 
     def __unicode__(self):
         return strip_tags(truncatewords_html(self.body, 5))
+
+    def save(self, *args, **kwargs):
+        super(Footnote, self).save(*args, **kwargs)
+        placeholder, page = self.placeholder, self.placeholder.page
+        cache_key = self.get_cache_key(page, placeholder.slot)
+        cache.delete(cache_key)
+
+    @staticmethod
+    def get_cache_key(page, placeholder_name):
+        return 'footnote_plugins_%d_%s' % (page.pk, placeholder_name)

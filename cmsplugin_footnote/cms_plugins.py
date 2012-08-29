@@ -2,6 +2,7 @@ from cms.plugins.text.cms_plugins import TextPlugin
 from .models import Footnote
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
+from .utils import get_footnote_plugins
 from cms.plugin_pool import plugin_pool
 
 
@@ -25,11 +26,7 @@ class FootnotePlugin(TextPlugin):
         context = super(FootnotePlugin, self).render(context, instance,
                                                      placeholder_name)
         page = context['request'].current_page
-        placeholder = page.placeholders.get(slot=placeholder_name)
-        plugins = placeholder.cmsplugin_set \
-                             .filter(plugin_type='FootnotePlugin') \
-                             .order_by('tree_id', 'rght')
-        footnote_plugins = [p.get_plugin_instance()[0] for p in plugins]
+        footnote_plugins = get_footnote_plugins(page, placeholder_name)
         context['counter'] = footnote_plugins.index(instance) + 1
         context['placeholder_name'] = placeholder_name
         return context
