@@ -1,7 +1,7 @@
 {% spaceless %}
-  <a href="#{{ placeholder_name }}_footnote_{{ counter }}">
-    <sup  id="{{ placeholder_name }}_footnote_{{ counter }}_symbol"
-          class="footnote-symbol"
-    >{{ object.symbol|default:counter }}</sup>
-  </a>
+  <sup  id="{{ placeholder_name }}_footnote_{{ counter }}_symbol"
+        class="footnote-symbol">
+    <a href="#{{ placeholder_name }}_footnote_{{ counter }}"
+    >{{ object.symbol|default:counter }}</a>
+  </sup>
 {% endspaceless %}
