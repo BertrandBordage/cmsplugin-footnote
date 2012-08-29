@@ -30,7 +30,7 @@
   text-align: right;
   border-radius: 5px 0px 0px 5px;
 }
-.cms-footnote-list .footnote .footnote-symbol,
+.cms-footnote-list .footnote>*,
 .footnote-symbol {
   border: 1px solid transparent;
   background-color: transparent;
