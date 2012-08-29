@@ -1,3 +1,5 @@
+# coding: utf-8
+
 from cms.plugins.text.cms_plugins import TextPlugin
 from .models import Footnote
 from django.utils.translation import ugettext_lazy as _

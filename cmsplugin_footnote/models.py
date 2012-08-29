@@ -1,3 +1,5 @@
+# coding: utf-8
+
 from cms.plugins.text.models import AbstractText
 from django.db.models import CharField
 from django.utils.translation import ugettext_lazy as _
