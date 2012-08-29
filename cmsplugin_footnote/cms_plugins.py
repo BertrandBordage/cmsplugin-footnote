@@ -12,7 +12,6 @@ class FootnotePlugin(TextPlugin):
     render_template = 'cmsplugin_footnote/footnote_symbol.html'
     text_enabled = True
     admin_preview = False
-    change_form_template = 'cms/plugins/text_plugin_change_form.html'
 
     def get_editor_widget(self, request, plugins):
         plugins.remove(FootnotePlugin)
