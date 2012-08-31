@@ -4,7 +4,7 @@ from django.core.cache import cache
 
 
 def get_cache_key(page, placeholder_name):
-        return 'footnote_plugins_%d_%s' % (page.pk, placeholder_name)
+    return 'footnote_plugins_%d_%s' % (page.pk, placeholder_name)
 
 
 def get_footnote_plugins(page, placeholder_name):
