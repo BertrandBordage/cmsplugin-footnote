@@ -6,7 +6,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='cmsplugin-footnote',
-    version='0.2',
+    version='0.2.1',
     author='Bertrand Bordage',
     author_email='bordage.bertrand@gmail.com',
     url='https://github.com/BertrandBordage/cmsplugin-footnote',
