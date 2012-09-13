@@ -42,7 +42,6 @@ def get_footnotes_for_page(request, page):
     cache_key = get_cache_key(page, plugins)
     footnotes = cache.get(cache_key)
     if footnotes is None:
-        print u'raté :\\'
         root_footnote_and_text_plugins = plugins.filter(
                 placeholder__page=page,
                 plugin_type__in=('FootnotePlugin', 'TextPlugin'),
