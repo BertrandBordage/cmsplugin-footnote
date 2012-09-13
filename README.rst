@@ -24,8 +24,8 @@ Installation
 #. Add ``'cmsplugin_footnote',`` to your ``INSTALLED_APPS``
 #. ``./manage.py syncdb``
 #. ``./manage.py collectstatic``
-#. Add ``{% load footnote %}`` and one or several
-   ``{% footnote_list 'placeholder_name' %}`` to your CMS template(s).
+#. Add ``{% load footnote %}`` and one ``{% footnote_list %}`` in your CMS
+   template(s).
 
 
 
