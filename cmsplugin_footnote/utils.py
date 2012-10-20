@@ -53,7 +53,10 @@ def get_footnotes_for_page(request, page):
             if plugin_is_footnote(p):
                 footnote_plugins__append(p)
             else:
-                text = downcast_plugins((p,))[0]
+                try:
+                    text = downcast_plugins((p,))[0]
+                except IndexError:
+                    continue
                 plugin_iterator = plugin_iterator_from_text_plugin(text)
                 for plugin in plugin_iterator:
                     if plugin_is_footnote(plugin):
