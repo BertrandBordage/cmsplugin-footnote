@@ -2,11 +2,12 @@
 # coding: utf-8
 
 from setuptools import setup, find_packages
+from cmsplugin_footnote import version_string
 
 
 setup(
     name='cmsplugin-footnote',
-    version='0.2.2',
+    version=version_string,
     author='Bertrand Bordage',
     author_email='bordage.bertrand@gmail.com',
     url='https://github.com/BertrandBordage/cmsplugin-footnote',
