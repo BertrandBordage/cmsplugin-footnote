@@ -3,33 +3,33 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Bertrand Bordage <bordage.bertrand@gmail.com>, 2012
+# ekini <eugene@dementiev.eu>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: cmsplugin-footnote\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-28 16:06+0200\n"
-"PO-Revision-Date: 2012-08-28 14:34+0000\n"
-"Last-Translator: Bertrand Bordage <bordage.bertrand@gmail.com>\n"
+"PO-Revision-Date: 2012-11-06 08:29+0000\n"
+"Last-Translator: ekini <eugene@dementiev.eu>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: cms_plugins.py:10 models.py:13
 msgid "Footnote"
-msgstr "Note bas de page"
+msgstr "Сноска"
 
 #: models.py:9
 msgid "symbol"
-msgstr "symbole"
+msgstr "символ"
 
 #: models.py:10
 msgid "Overrides the automatic numbering."
-msgstr "Remplace la numérotation automatique."
+msgstr "Отменяет автоматическую нумерацию."
 
 #: models.py:14
 msgid "Footnotes"
-msgstr "Notes bas de page"
+msgstr "Сноски"
