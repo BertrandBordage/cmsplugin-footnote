@@ -5,6 +5,7 @@ from cms.utils.moderator import get_cmsplugin_queryset
 from cms.plugins.text.utils import plugin_tags_to_id_list
 from cms.plugins.utils import downcast_plugins
 from cms.models import CMSPlugin
+from cmsplugin_footnote.models import Footnote
 from .settings import CMSPLUGIN_FOOTNOTE_DEBUG
 
 
@@ -40,8 +41,8 @@ def get_footnotes_for_page(request, page):
     '''
     plugins = get_cmsplugin_queryset(request)
     cache_key = get_cache_key(page, plugins)
-    footnotes = cache.get(cache_key)
-    if footnotes is None:
+    footnote_ids = cache.get(cache_key)
+    if footnote_ids is None:
         root_footnote_and_text_plugins = plugins.filter(
                 placeholder__page=page,
                 plugin_type__in=('FootnotePlugin', 'TextPlugin'),
@@ -61,6 +62,6 @@ def get_footnotes_for_page(request, page):
                 for plugin in plugin_iterator:
                     if plugin_is_footnote(plugin):
                         footnote_plugins__append(plugin)
-        footnotes = downcast_plugins(footnote_plugins)
-        cache.set(cache_key, footnotes)
-    return footnotes
+        footnote_ids = tuple(f.pk for f in downcast_plugins(footnote_plugins))
+        cache.set(cache_key, footnote_ids   )
+    return Footnote.objects.filter(pk__in=footnote_ids)
