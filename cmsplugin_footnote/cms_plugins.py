@@ -29,7 +29,7 @@ class FootnotePlugin(TextPlugin):
                                                      placeholder_name)
         request = context['request']
         page = request.current_page
-        footnotes = list(get_footnotes_for_page(request, page))
+        footnotes = get_footnotes_for_page(request, page)
         context['counter'] = footnotes.index(instance) + 1
         return context
 

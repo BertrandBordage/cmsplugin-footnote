@@ -30,9 +30,9 @@ def plugin_iterator_from_text_plugin(text_plugin):
     for pk in plugin_pk_list:
         try:
             yield CMSPlugin.objects.get(pk=pk)
-        except CMSPlugin.DoesNotExist, e:
+        except CMSPlugin.DoesNotExist:
             if CMSPLUGIN_FOOTNOTE_DEBUG:
-                raise e
+                raise
 
 
 def get_footnotes_for_page(request, page):
@@ -49,10 +49,9 @@ def get_footnotes_for_page(request, page):
                 parent=None
             ).order_by('position')
         footnote_plugins = []
-        footnote_plugins__append = footnote_plugins.append
         for p in root_footnote_and_text_plugins:
             if plugin_is_footnote(p):
-                footnote_plugins__append(p)
+                footnote_plugins.append(p)
             else:
                 try:
                     text = downcast_plugins((p,))[0]
@@ -61,7 +60,11 @@ def get_footnotes_for_page(request, page):
                 plugin_iterator = plugin_iterator_from_text_plugin(text)
                 for plugin in plugin_iterator:
                     if plugin_is_footnote(plugin):
-                        footnote_plugins__append(plugin)
-        footnote_ids = tuple(f.pk for f in downcast_plugins(footnote_plugins))
-        cache.set(cache_key, footnote_ids   )
-    return Footnote.objects.filter(pk__in=footnote_ids)
+                        footnote_plugins.append(plugin)
+        footnotes = downcast_plugins(footnote_plugins)
+        footnote_ids = [f.pk for f in downcast_plugins(footnote_plugins)]
+        cache.set(cache_key, footnote_ids)
+        return footnotes
+    footnotes = Footnote.objects.filter(pk__in=footnote_ids)
+    footnotes = {f.pk: f for f in footnotes}
+    return [footnotes[pk] for pk in footnote_ids]
