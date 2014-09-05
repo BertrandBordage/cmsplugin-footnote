@@ -6,7 +6,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from .utils import get_footnotes_for_page
 from cms.plugin_pool import plugin_pool
-from .utils import delete_cache_key
 
 
 class FootnotePlugin(TextPlugin):
@@ -32,10 +31,6 @@ class FootnotePlugin(TextPlugin):
         footnotes = get_footnotes_for_page(request, page)
         context['counter'] = footnotes.index(instance) + 1
         return context
-
-    def save_model(self, *args, **kwargs):
-        super(FootnotePlugin, self).save_model(*args, **kwargs)
-        delete_cache_key(self.placeholder.page)
 
 
 plugin_pool.register_plugin(FootnotePlugin)
