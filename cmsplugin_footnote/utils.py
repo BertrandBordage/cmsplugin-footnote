@@ -1,5 +1,5 @@
 # coding: utf-8
-from cms.models import CMSPlugin
+
 from cms.plugins.text.models import Text
 
 from cms.utils.moderator import get_cmsplugin_queryset
@@ -17,19 +17,35 @@ def get_footnotes_for_page(request, page):
         placeholder__page=page,
         plugin_type__in=('FootnotePlugin', 'TextPlugin'),
     ).order_by('position').values('parent', 'plugin_type', 'pk')
-    root_footnote_and_text_plugins = [p for p in footnote_and_text_plugins if p['parent'] is None]
+
     pks = [p['pk'] for p in footnote_and_text_plugins]
-    footnote_dict = {f.cmsplugin_ptr_id: f for f in Footnote.objects.filter(cmsplugin_ptr_id__in=pks)}
-    text_dict = {t.cmsplugin_ptr_id: t for t in Text.objects.filter(cmsplugin_ptr_id__in=pks)}
+    footnote_dict = {f.cmsplugin_ptr_id: f for f in
+                     Footnote.objects.filter(cmsplugin_ptr_id__in=pks)}
+    text_dict = {t.cmsplugin_ptr_id: t for t in
+                 Text.objects.filter(cmsplugin_ptr_id__in=pks)}
+
+    def get_footnote_or_text(plugin_pk, plugin_type):
+        d = footnote_dict if plugin_type == 'FootnotePlugin' else text_dict
+        try:
+            return d[plugin_pk]
+        except KeyError:
+            if CMSPLUGIN_FOOTNOTE_DEBUG:
+                raise
+
+    root_footnote_and_text_plugins = [p for p in footnote_and_text_plugins
+                                      if p['parent'] is None]
+
     footnotes = []
     for plugin in root_footnote_and_text_plugins:
+        footnote_or_text = get_footnote_or_text(plugin['pk'],
+                                                plugin['plugin_type'])
+        if footnote_or_text is None:
+            continue
         if plugin['plugin_type'] == 'FootnotePlugin':
-            footnotes.append(footnote_dict[plugin['pk']])
+            footnotes.append(footnote_or_text)
         else:
-            for pk in plugin_tags_to_id_list(text_dict[plugin['pk']].body):
-                try:
-                    footnotes.append(footnote_dict[pk])
-                except KeyError:
-                    if CMSPLUGIN_FOOTNOTE_DEBUG:
-                        raise
+            for pk in plugin_tags_to_id_list(footnote_or_text.body):
+                footnote = get_footnote_or_text(pk, 'FootnotePlugin')
+                if footnote is not None:
+                    footnotes.append(footnote)
     return footnotes
