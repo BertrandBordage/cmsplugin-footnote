@@ -5,31 +5,27 @@
 {% endaddtoblock %}
 
 {% spaceless %}
-  {% for footnote_plugin in footnotes %}
+  {% if footnotes %}
+    <div class="cms-footnote-list-hline"></div>
+    <table class="cms-footnote-list">
+      <tbody>
+        {% for footnote_plugin in footnotes %}
 
-    {% if forloop.first %}
-      <div class="cms-footnote-list-hline"></div>
-      <table class="cms-footnote-list">
-        <tbody>
-    {% endif %}
+          {% with counter=forloop.counter %}
+            <tr class="footnote" id="{{ placeholder_name }}_footnote_{{ counter }}">
+              <td class="footnote-symbol">
+                <a href="#{{ placeholder_name }}_footnote_{{ counter }}_symbol">
+                  {{ footnote_plugin.symbol|default:counter }}.
+                </a>
+              </td>
+              <td class="footnote-body">
+                {{ footnote_plugin.body|safe }}
+              </td>
+            </tr>
+          {% endwith %}
 
-    {% with counter=forloop.counter %}
-      <tr class="footnote" id="{{ placeholder_name }}_footnote_{{ counter }}">
-        <td class="footnote-symbol">
-          <a href="#{{ placeholder_name }}_footnote_{{ counter }}_symbol">
-            {{ footnote_plugin.symbol|default:counter }}.
-          </a>
-        </td>
-        <td class="footnote-body">
-          {{ footnote_plugin.body|safe }}
-        </td>
-      </tr>
-    {% endwith %}
-
-    {% if forloop.last %}
-        </tbody>
-      </table>
-    {% endif %}
-
-  {% endfor %}
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
 {% endspaceless %}
