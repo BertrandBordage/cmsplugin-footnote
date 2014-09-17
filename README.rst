@@ -12,8 +12,11 @@ A simple plugin allowing to add footnotes in django CMS.
 Requirements
 ============
 
-* `Django <https://www.djangoproject.com/>`_ (tested with 1.4)
-* `django-CMS <https://www.django-cms.org/>`_ (tested with 2.3)
+* `Django <https://www.djangoproject.com/>`_ (tested with 1.4, 1.5 & 1.6)
+* `django-CMS <https://www.django-cms.org/>`_ (tested with 2.3, 2.4 & 3.0)
+* If you use django-CMS 3,
+  `djangocms-text-ckeditor <https://github.com/divio/djangocms-text-ckeditor>`_
+  (tested with 2.3.0)
 
 
 

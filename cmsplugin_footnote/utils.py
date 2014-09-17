@@ -1,9 +1,13 @@
 # coding: utf-8
 
-from cms.plugins.text.models import Text
+try:
+    from cms.plugins.text.models import Text
+    from cms.plugins.text.utils import plugin_tags_to_id_list
+except ImportError:
+    from djangocms_text_ckeditor.models import Text
+    from djangocms_text_ckeditor.utils import plugin_tags_to_id_list
 
 from cms.utils.moderator import get_cmsplugin_queryset
-from cms.plugins.text.utils import plugin_tags_to_id_list
 from .models import Footnote
 from .settings import CMSPLUGIN_FOOTNOTE_DEBUG
 

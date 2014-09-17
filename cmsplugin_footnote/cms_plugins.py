@@ -1,11 +1,14 @@
 # coding: utf-8
 
-from cms.plugins.text.cms_plugins import TextPlugin
-from .models import Footnote
+from cms.plugin_pool import plugin_pool
+try:
+    from cms.plugins.text.cms_plugins import TextPlugin
+except ImportError:
+    from djangocms_text_ckeditor.cms_plugins import TextPlugin
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
+from .models import Footnote
 from .utils import get_footnotes_for_page
-from cms.plugin_pool import plugin_pool
 
 
 class FootnotePlugin(TextPlugin):
