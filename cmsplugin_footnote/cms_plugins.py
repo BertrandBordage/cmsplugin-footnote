@@ -18,9 +18,11 @@ class FootnotePlugin(TextPlugin):
     text_enabled = True
     admin_preview = False
 
-    def get_editor_widget(self, request, plugins):
-        plugins.remove(FootnotePlugin)
-        return super(FootnotePlugin, self).get_editor_widget(request, plugins)
+    def get_editor_widget(self, request, plugins, pk, placeholder, language):
+        if FootnotePlugin in plugins:
+            plugins.remove(FootnotePlugin)
+        return super(FootnotePlugin, self).get_editor_widget(
+            request, plugins, pk, placeholder, language)
 
     @staticmethod
     def icon_src(self):
