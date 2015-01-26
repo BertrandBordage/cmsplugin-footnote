@@ -1,5 +1,7 @@
 # coding: utf-8
 
+from django.utils import translation
+
 try:
     from cms.plugins.text.models import Text
     from cms.plugins.text.utils import plugin_tags_to_id_list
@@ -20,13 +22,12 @@ def get_footnotes_for_page(request, page):
     footnote_and_text_plugins = plugins.filter(
         placeholder__page=page,
         plugin_type__in=('FootnotePlugin', 'TextPlugin'),
+        language=translation.get_language(),
     ).order_by('position').values('parent', 'plugin_type', 'pk')
 
     pks = [p['pk'] for p in footnote_and_text_plugins]
-    footnote_dict = {f.cmsplugin_ptr_id: f for f in
-                     Footnote.objects.filter(cmsplugin_ptr_id__in=pks)}
-    text_dict = {t.cmsplugin_ptr_id: t for t in
-                 Text.objects.filter(cmsplugin_ptr_id__in=pks)}
+    footnote_dict = Footnote.objects.in_bulk(pks)
+    text_dict = Text.objects.in_bulk(pks)
 
     def get_footnote_or_text(plugin_pk, plugin_type):
         d = footnote_dict if plugin_type == 'FootnotePlugin' else text_dict
